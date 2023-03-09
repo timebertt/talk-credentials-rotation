@@ -1,9 +1,8 @@
 # Credentials Rotation in Kubernetes – Putting Together the Puzzle Pieces
 
-<!--
-TODO
-([![Netlify Status]&#40;https://api.netlify.com/api/v1/badges/TODO/deploy-status&#41;]&#40;https://app.netlify.com/sites/TODO/deploys&#41;)
--->
+[![Netlify Status](https://api.netlify.com/api/v1/badges/30179840-3ac4-4fcb-940a-7175be505f88/deploy-status)](https://app.netlify.com/sites/talk-credentials-rotation/deploys)
+
+Take me to the [slides](https://talks.timebertt.dev/credentials-rotation/)!
 
 ## About
 
@@ -69,3 +68,11 @@ Set `NODE_ENV=production` to enable minimization as it is done in netflify build
 ```bash
 NODE_ENV=production npm run build
 ```
+
+### Netlify Deploys
+
+Netlify builds and publishes new commits to the `master` branch on https://talk-credentials-rotation.netlify.app/.
+
+https://github.com/timebertt/talks contains a [netlify proxy configuration](https://github.com/timebertt/talks/blob/master/netlify.toml) to make the slides available at https://talks.timebertt.dev/credentials-rotation/.
+
+The netlify site is configured to publish deploy previews for pull requests to the `master` branch and for pushes to arbitrary other branches.
