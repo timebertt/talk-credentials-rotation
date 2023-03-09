@@ -1,0 +1,30 @@
+{
+  "name": "talk-credentials-rotation",
+  "version": "0.1.0",
+  "description": "Credentials Rotation in Kubernetes – Putting Together the Puzzle Pieces",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack build",
+    "start": "webpack serve --open",
+    "serve": "http-server ./dist -o",
+    "clean": "rm -rf ./dist"
+  },
+  "author": "Rafael Franzke and Tim Ebert",
+  "dependencies": {
+    "reveal.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "highlight.js": "^11.7.0",
+    "html-webpack-plugin": "^5.5.0",
+    "http-server": "^14.1.1",
+    "loader-utils": "^3.2.1",
+    "mini-css-extract-plugin": "^2.7.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
