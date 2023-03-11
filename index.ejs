@@ -5,5 +5,19 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
+<div class="reveal">
+    <div class="slides">
+        <% for (let asset in compilation.assets) {
+            if (!asset.endsWith('.md')) continue
+        %>
+        <section data-markdown="<%- asset %>"
+                 data-separator="^\r?\n---\r?\n$"
+                 data-separator-vertical="^\r?\nvvv\r?\n$"
+                 data-separator-notes="^notes?:"
+                 data-charset="utf-8">
+        </section>
+        <% } %>
+    </div>
+</div>
 </body>
 </html>
