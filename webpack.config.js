@@ -34,8 +34,8 @@ module.exports = {
   devServer: {},
   plugins: [
     new HtmlWebpackPlugin({
-      // TODO: inject html lang tag to allow browsers to detect the right content language
       filename: 'index.html',
+      template: 'index.ejs',
       title: 'Credentials Rotation in Kubernetes',
       meta: {
         'viewport': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
