@@ -4,6 +4,7 @@ import Reveal from 'reveal.js/dist/reveal.esm.js';
 import Markdown from 'reveal.js/plugin/markdown/markdown.esm.js';
 import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
 import Notes from 'reveal.js/plugin/notes/notes.esm.js';
+import QRCode from './reveal/plugin/slides-qr-code.js';
 
 // styles
 import './custom.css';
@@ -20,11 +21,11 @@ import 'highlight.js/styles/obsidian.css';
 
 // initialize reveal.js and plugins
 Reveal.initialize({
-  plugins: [Markdown, Highlight, Notes],
+  plugins: [Markdown, Highlight, Notes, QRCode],
   hash: true,
   history: true,
   center: false,
-  controls: false,
+  controls: true,
   navigationMode: 'default',
   slideNumber: true
 });

@@ -1,3 +1,12 @@
+## Slides Available Online
+
+<img class="slides-qr-code"></img>
+<!-- .element: class="r-stretch" -->
+
+<a class="slides-qr-code"></a>
+
+---
+
 ## Code Slide
 
 ```javascript

@@ -20,7 +20,7 @@ Given the many distributed components inside a Kubernetes cluster that are conne
 This talk shall inspire the audience on how such best practices (short-lived credentials, auto-rotation) can be implemented to improve the overall security of the ecosystem.
 Apart from demystifying credentials management and rotation procedures in general, the listeners get insights into the Kubernetes community's transition from static ServiceAccount token secrets to projected tokens (along with interesting pitfalls).
 
-## Editing the Slides
+## Presenting and Editing the Slides
 
 Slides are built in Markdown using [reveal.js](https://revealjs.com/), packaged with [webpack](https://webpack.js.org/), and deployed with [netlify](https://www.netlify.com/).
 
@@ -32,7 +32,19 @@ Install a recent `node` version. Preferably, the one specified in [`.node-versio
 brew install node
 ```
 
-### Local Edit
+### Present Locally
+
+Perform a production build and serve the slides from the `dist` folder:
+
+```bash
+NODE_ENV=production npm run build
+npm run serve
+```
+
+Important: Set `NODE_ENV=production` to yield the same build outputs as in production deploys to netlify.
+If you don't set it, the QR will link to a local IP instead of the canonical URL, for example.
+
+### Edit Locally
 
 Run a dev server with hot-reload and open the slides in the browser:
 
@@ -47,7 +59,7 @@ When saving, slides are automatically rebuilt and refreshed in the browser.
 
 > Note, that `npm start` doesn't write the output to `dist`.
 
-### Local Build
+### Build Locally
 
 Run a full build and write output files to `dist`:
 
@@ -59,7 +71,7 @@ Now, output files can be inspected in the `dist` folder.
 Also, the slides can be served locally from the `dist` folder (no hot-reload):
 
 ```bash
-npm run server
+npm run serve
 ```
 
 Using the above will output non-minimized files.
@@ -69,7 +81,7 @@ Set `NODE_ENV=production` to enable minimization as it is done in netflify build
 NODE_ENV=production npm run build
 ```
 
-### Netlify Deploys
+## Netlify Deploys
 
 Netlify builds and publishes new commits to the `master` branch on https://talk-credentials-rotation.netlify.app/.
 

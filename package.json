@@ -12,6 +12,7 @@
   },
   "author": "Rafael Franzke and Tim Ebert",
   "dependencies": {
+    "qrcode": "^1.5.1",
     "reveal.js": "^4.4.0"
   },
   "devDependencies": {

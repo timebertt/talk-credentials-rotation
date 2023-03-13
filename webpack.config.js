@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -31,7 +32,12 @@ module.exports = {
     clean: true
   },
   devtool: devMode ? 'inline-source-map' : 'source-map',
-  devServer: {},
+  devServer: {
+    // Use the host machine's local IP on the network.
+    // This is useful for opening the slides on a mobile device while editing.
+    // Comment out this line if you're offline.
+    host: 'local-ip'
+  },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -45,6 +51,11 @@ module.exports = {
       },
       // in production mode, hash is included in output filename, no need to append a hash query
       hash: devMode
+    }),
+    new webpack.DefinePlugin({
+      // In development mode, use the browser's location as the QR code URL.
+      // This is useful for opening the slides on a mobile device while editing.
+      SLIDES_URL: devMode ? 'window.location.href' : JSON.stringify('https://talks.timebertt.dev/credentials-rotation/')
     })
   ].concat(devMode ? [] : [new MiniCssExtractPlugin({
     filename: '[name].[contenthash].css',
