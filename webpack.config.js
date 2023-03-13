@@ -51,7 +51,7 @@ module.exports = {
     chunkFilename: '[id].[contenthash].css'
   })]),
   resolveLoader: {
-    modules: ['node_modules', path.resolve('./loaders')]
+    modules: ['node_modules', path.resolve('./webpack/loaders')]
   },
   module: {
     rules: [
