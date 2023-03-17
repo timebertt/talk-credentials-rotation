@@ -12,7 +12,7 @@ import QRCode from './reveal/plugin/slides-qr-code.js';
 import './custom.css';
 import 'reveal.js/dist/reset.css';
 import 'reveal.js/dist/reveal.css';
-import 'reveal.js/dist/theme/black.css';
+import 'reveal.js/dist/theme/league.css';
 import 'highlight.js/styles/obsidian.css';
 
 // import all markdown files from ./content
