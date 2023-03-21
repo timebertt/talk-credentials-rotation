@@ -35,7 +35,7 @@ module.exports = {
   devServer: {
     // Use the host machine's local IP on the network.
     // This is useful for opening the slides on a mobile device while editing.
-    // Comment out this line if you're offline.
+    // Comment out this line if you're offline or in a VPN.
     host: 'local-ip'
   },
   plugins: [

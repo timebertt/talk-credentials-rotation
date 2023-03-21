@@ -26,7 +26,7 @@ Reveal.initialize({
   plugins: [Markdown, Highlight, Notes, Search, Zoom, QRCode],
   hash: true,
   history: true,
-  center: false,
+  center: true,
   controls: true,
   navigationMode: 'default',
   slideNumber: true
