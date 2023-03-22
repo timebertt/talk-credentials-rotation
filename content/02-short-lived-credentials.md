@@ -60,6 +60,13 @@ Notes:
 
 vvv
 
+## TODO: Show `TokenRequest` API (small demo)
+
+- Mention that this API can also be called from others (not only kubelet)
+- We use this in Gardener ...
+
+vvv
+
 ## "Magic" Expiration Time
 
 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/plugin/pkg/admission/serviceaccount/admission.go#L421-L460)
@@ -118,7 +125,7 @@ If `--service-account-extend-token-expiration` is set to `true` (default):
 
 ```go[|9]
 const (
-	WarnOnlyBoundTokenExpirationSeconds = 60*60 + 7
+	WarnOnlyBoundTokenExpirationSeconds = 60 * 60 + 7
 	ExpirationExtensionSeconds          = 24 * 365 * 60 * 60
 )
 
