@@ -35,7 +35,7 @@ Notes:
 - We talk about credentials for "Kubernetes as application"
 - Where are we coming from? -> Mgmt of 1000s of clusters
 
-vvv
+---
 
 ## Project Gardener
 

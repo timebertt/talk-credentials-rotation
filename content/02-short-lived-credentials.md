@@ -1,4 +1,8 @@
-## Short-Lived Credentials
+# Short-Lived Credentials
+
+vvv
+
+## `ServiceAccount`
 
 ```yaml
 apiVersion: v1
@@ -150,7 +154,7 @@ vvv
 
 - If you cannot control the flag (e.g., in managed clusters), overwrite the `expirationSeconds` to ensure short validity
 
-vvv
+---
 
 ## Static Token Secrets
 
