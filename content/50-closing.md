@@ -1,4 +1,3 @@
-<!-- .element: data-visibility="uncounted" -->
 ## Thanks
 
 Follow us on Twitter:
