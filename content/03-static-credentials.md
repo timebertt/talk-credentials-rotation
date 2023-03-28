@@ -73,8 +73,6 @@ vvv
 
 vvv
 
-## Credentials Rotation
-
 ![Demo](../assets/show-me-a-demo.jpg)
 <!-- .element: class="r-stretch" -->
 

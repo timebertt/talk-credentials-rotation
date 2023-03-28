@@ -64,70 +64,23 @@ Notes:
 
 vvv
 
-## TODO: Show `TokenRequest` API (small demo)
+## `TokenRequest` API
 
+Notes:
+- Short demo creating a token
 - Mention that this API can also be called from others (not only kubelet)
-- We use this in Gardener ...
+- We use this in Gardener as well
 
 vvv
 
 ## "Magic" Expiration Time
 
-[Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/plugin/pkg/admission/serviceaccount/admission.go#L421-L460)
-
-```go[|9]
-func TokenVolumeSource() *api.ProjectedVolumeSource {
-	return &api.ProjectedVolumeSource{
-		// explicitly set default value, see #104464
-		DefaultMode: pointer.Int32(corev1.ProjectedVolumeSourceDefaultMode),
-		Sources: []api.VolumeProjection{
-			{
-				ServiceAccountToken: &api.ServiceAccountTokenProjection{
-					Path:              "token",
-					ExpirationSeconds: serviceaccount.WarnOnlyBoundTokenExpirationSeconds,
-				},
-			},
-			{
-				ConfigMap: &api.ConfigMapProjection{
-					LocalObjectReference: api.LocalObjectReference{
-						Name: "kube-root-ca.crt",
-					},
-					Items: []api.KeyToPath{
-						{
-							Key:  "ca.crt",
-							Path: "ca.crt",
-						},
-					},
-				},
-			},
-			{
-				DownwardAPI: &api.DownwardAPIProjection{
-					Items: []api.DownwardAPIVolumeFile{
-						{
-							Path: "namespace",
-							FieldRef: &api.ObjectFieldSelector{
-								APIVersion: "v1",
-								FieldPath:  "metadata.namespace",
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-}
-```
-
-vvv
-
-## "Magic" Expiration Time
-
-If `--service-account-extend-token-expiration` is set to `true` (default):
+kubelet silently overwrites the expiration seconds 🥷🏻
 
 
 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
 
-```go[|9]
+```go[|9|3,10]
 const (
 	WarnOnlyBoundTokenExpirationSeconds = 60 * 60 + 7
 	ExpirationExtensionSeconds          = 24 * 365 * 60 * 60
@@ -174,8 +127,8 @@ data:
   token: <some-static-token>
 ```
 
-- Such tokens have no expiration date!
-- They might still exist in your cluster!
+- Such tokens have no expiration date! 😱
+- Probably they still exist in your 1.24+ clusters! 👹
 
 Notes:
 - You can even now still create them manually if needed
@@ -183,9 +136,25 @@ Notes:
 
 vvv
 
-## Token Invalidation
+## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
 
-**Demo**
+![1](../assets/kep2799-1.png)
+
+vvv
+
+## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
+
+![1](../assets/kep2799-2.png)
+
+vvv
+
+## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
+
+![1](../assets/kep2799-3.png)
+
+vvv
+
+## Token Invalidation
 
 ![Demo](../assets/demo-time.gif)
 <!-- .element: class="r-stretch" -->
@@ -195,6 +164,7 @@ vvv
 ## Conclusion
 
 - If you are on `v1.24` or higher, manually delete still remaining static token secrets
+
 - If you are stuck below `v1.24`, consider invalidating the tokens
 
 Notes:
