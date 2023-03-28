@@ -185,9 +185,10 @@ vvv
 
 ## Token Invalidation
 
-<b>Demo</b>
+**Demo**
 
 ![Demo](../assets/demo-time.gif)
+<!-- .element: class="r-stretch" -->
 
 vvv
 

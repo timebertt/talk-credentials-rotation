@@ -10,7 +10,7 @@ Each Kubernetes cluster comes with a lot of credentials:
 - 📝 Server and client certificates
 - 🏷️ ServiceAccount tokens
 - 🗝️ Static tokens
-- 🔐 ETCD encyption key
+- 🔐 ETCD encryption key
 - 🔑 SSH key pair
 
 Notes:
