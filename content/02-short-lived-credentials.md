@@ -1,6 +1,6 @@
 # Short-Lived Credentials
 
-vvv
+---
 
 ## `ServiceAccount`
 

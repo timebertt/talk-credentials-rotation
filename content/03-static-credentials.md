@@ -1,6 +1,6 @@
 # Rotating Static Credentials
 
-vvv
+---
 
 ## Requirements
 

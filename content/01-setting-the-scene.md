@@ -1,13 +1,17 @@
+# Setting the Scene
+
+---
+
 ## Problem Statement
 
-- Each Kubernetes cluster comes with a lot of credentials:
+Each Kubernetes cluster comes with a lot of credentials:
 
-  - 🪪 Certificate authorities
-  - 📝 Server and client certificates
-  - 🏷️ ServiceAccount tokens
-  - 🗝️ Static tokens
-  - 🔐 ETCD encyption key
-  - 🔑 SSH key pair
+- 🪪 Certificate authorities
+- 📝 Server and client certificates
+- 🏷️ ServiceAccount tokens
+- 🗝️ Static tokens
+- 🔐 ETCD encyption key
+- 🔑 SSH key pair
 
 Notes:
 - As an application developer/user, you might not know be specifically aware about those.
