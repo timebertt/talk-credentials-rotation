@@ -139,10 +139,7 @@ data:
   tls.key: LS0t...
 ```
 
-vvv
-
-## Kubernetes Primitives
-
+notes:
 - plain Kubernetes `Secrets`
 - immutable secrets
   - scalability
@@ -156,29 +153,18 @@ vvv
   - based on config change
   - based on trigger
   - based on validity
-- clients use bundle of old/new server CA
-- servers use bundle of old/new client CA
+- secrets manager always returns bundle of CAs
 
 notes:
 - TODO: add link to https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing
+- bundles: could be one or two CAs
 
 vvv
 
 ## Auto-Rotation
 
-- activated for non-user-facing CAs
+- activated for non-user-facing credentials
   - internal CAs: 30d validity
 - rotation is prepared when approaching end of validity
-  - use bundles everywhere
 - rotation is completed after 24h
 - fully-automated + disruption-free!
-
----
-
-## TODO: conclusion
-
-- two-step rotation for static credentials
-- implemented for kubernetes as workload, concept is applicable to most workloads
-
-notes:
-- move to general summary?

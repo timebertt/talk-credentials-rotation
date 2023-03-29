@@ -13,4 +13,3 @@ Follow us on Twitter:
 Check out project Gardener: ![Gardener Logo](../assets/gardener.svg)
 - [gardener.cloud](https://gardener.cloud)
 - [github.com/gardener/gardener](https://github.com/gardener/gardener)
-
