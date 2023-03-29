@@ -75,12 +75,12 @@ vvv
 
 ## "Magic" Expiration Time
 
-kubelet silently overwrites the expiration seconds 🥷🏻
+kubelet silently overwrites the expiration seconds 👻
 
 
 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
 
-```go[|9|3,10]
+```go[|9-12|11-12,2|3,13]
 const (
 	WarnOnlyBoundTokenExpirationSeconds = 60 * 60 + 7
 	ExpirationExtensionSeconds          = 24 * 365 * 60 * 60
@@ -89,7 +89,10 @@ const (
 // ...
 
 exp := req.Spec.ExpirationSeconds
-if r.extendExpiration && pod != nil && req.Spec.ExpirationSeconds == WarnOnlyBoundTokenExpirationSeconds && r.isKubeAudiences(req.Spec.Audiences) {
+if pod != nil &&
+  r.isKubeAudiences(req.Spec.Audiences) &&
+  r.extendExpiration &&
+  req.Spec.ExpirationSeconds == WarnOnlyBoundTokenExpirationSeconds {
 	exp = ExpirationExtensionSeconds
 }
 ```
@@ -103,7 +106,7 @@ vvv
 
 ## Conclusion
 
-- Set `--service-account-extend-token-expiration=false` to ensure tokens are indeed only valid for ~`1h`
+- Set `--service-account-extend-token-expiration=false` to ensure tokens are indeed only valid for `1h`
 
 - If you cannot control the flag (e.g., in managed clusters), overwrite the `expirationSeconds` to ensure short validity
 
@@ -159,6 +162,11 @@ vvv
 ![Demo](../assets/demo-time.gif)
 <!-- .element: class="r-stretch" -->
 
+Notes:
+- Gardener runs business-critical workload
+- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
+- Security standards must also be applied for lower Kubernetes versions
+
 vvv
 
 ## Conclusion
@@ -167,7 +175,3 @@ vvv
 
 - If you are stuck below `v1.24`, consider invalidating the tokens
 
-Notes:
-- Gardener runs business-critical workload
-- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
-- Security standards must also be applied for lower Kubernetes versions

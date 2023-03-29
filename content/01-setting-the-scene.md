@@ -97,6 +97,9 @@ spec:
 
 vvv
 
+# TODO: Drop the following two slides. Replace them with a more "lightweight" (as far as this is possible in this project) architecture diagram.
+# Goal/Explanation: We use Kubernetes everywhere, also for secrets management. Kubernetes components are our "workload/application".
+
 ## Kubernetes Architecture
 
 ![Architecture Kubernetes](../assets/architecture-kubernetes.png)

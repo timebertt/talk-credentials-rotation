@@ -92,6 +92,9 @@ vvv
 
 ## Requesting a Server Cert
 
+TODO: Write a short `main.go` with below code which shows how secrets manager works 
+TODO: Remove the next slide and show this live in the system
+
 ```go[|1|3-8|9|10]
 secret, err := secretsManager.Generate(
   ctx,
