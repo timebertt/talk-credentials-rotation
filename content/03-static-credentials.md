@@ -8,7 +8,7 @@
 <!-- .element: class="r-stretch" -->
 
 notes:
-- TODO: redraw diagram, not all service account tokens are static, exclude observability credentials
+- TODO: redraw diagram, not all service account tokens are static, remove observability credentials
 - CAs: valid for 10 years by default
 - other credentials: no expiration
 - previously: only static token and ssh key pair rotatable
@@ -92,61 +92,24 @@ vvv
 
 ## Requesting a Server Cert
 
-TODO: Write a short `main.go` with below code which shows how secrets manager works 
-TODO: Remove the next slide and show this live in the system
+**Live Coding!**
 
-```go[|1|3-8|9|10]
-secret, err := secretsManager.Generate(
-  ctx,
-  &secrets.CertificateSecretConfig{
-    CertType:   secrets.ServerCert,
-    Name:       "kube-apiserver",
-    CommonName: "kube-apiserver",
-    DNSNames:   []string{"kube-apiserver", "kube-apiserver.shoot--local--local.svc", /* ... */},
-  },
-  secretsmanager.SignedByCA("ca"),
-  secretsmanager.Rotate(secretsmanager.InPlace),
-)
-```
+![Live Coding](../assets/live-coding.gif)
+<!-- .element: class="r-stretch" -->
 
 notes:
-- generates a new server certificate for kube-apiserver
-- or retrieves an existing certificate from the cluster
-- ensures the secret has the given config
-- signs with the correct version of the cluster CA
-- drops the old certificate when rotating
-
-vvv
-
-## Result
-
-```yaml[1-5|18-19|6-9|10-11|12-14|16]
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kube-apiserver-b937fe88
-  namespace: shoot--local--local
-  labels:
-    managed-by: secrets-manager
-    manager-identity: gardenlet
-    name: kube-apiserver
-    checksum-of-config: "11635920296491681218"
-    checksum-of-signing-ca: 2ade89ab87c3b21c3eef0e015d0ee98507374e030509ea4cbe2503feab43fbd
-    issued-at-time: "1679647057"
-    valid-until-time: "1995266257"
-    last-rotation-initiation-time: ""
-type: kubernetes.io/tls
-immutable: true
-data:
-  tls.crt: LS0t...
-  tls.key: LS0t...
-```
-
-notes:
-- plain Kubernetes `Secrets`
-- immutable secrets
-  - scalability
-  - immutable infrastructure paradigm
+- `watch k -n secrets-manager get secret -L name,bundle-for`
+- run once w/o server cert
+- show generated CA and bundle secret
+- add code for server cert
+- run code again
+- show CA was not regenerated
+- show new server cert in YAML
+  - plain Kubernetes secrets
+  - labels for locating and identifying when to rate
+  - immutable secrets: scalability
+- TODO: change config?
+- TODO: rotate CA?
 
 vvv
 
@@ -157,9 +120,9 @@ vvv
   - based on trigger
   - based on validity
 - secrets manager always returns bundle of CAs
+- secrets manager always [signs with correct CA](https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing)
 
 notes:
-- TODO: add link to https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing
 - bundles: could be one or two CAs
 
 vvv
