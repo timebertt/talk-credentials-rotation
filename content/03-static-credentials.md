@@ -12,18 +12,7 @@ notes:
 - CAs: valid for 10 years by default
 - other credentials: no expiration
 - previously: only static token and ssh key pair rotatable
-
-vvv
-
-![Rotation](../assets/rotate.gif)
-
-vvv
-
-## Requirements
-
 - frequently rotate static credentials
-- must be disruption-free
-- must be minimal-ops
 
 vvv
 
@@ -92,21 +81,8 @@ notes:
   - plain Kubernetes secrets
   - labels for locating and identifying when to rate
   - immutable secrets: scalability
-- TODO: rotate CA?
-
-vvv
-
-## Rotation
-
-- secrets manager knows when to rotate
-  - based on config change
-  - based on trigger
-  - based on validity
-- secrets manager always returns bundle of CAs
-- secrets manager always [signs with correct CA](https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing)
-
-notes:
-- bundles: could be one or two CAs
+- rotate CA
+- TODO: record ascinema as backup
 
 vvv
 

@@ -49,9 +49,9 @@ func main() {
 	// prepare a CA for our demo
 	caSecret, err := secretsManager.Generate(ctx,
 		&secrets.CertificateSecretConfig{
+			CertType:   secrets.CACert,
 			Name:       "demo-ca",
 			CommonName: "my-selfsigned-ca",
-			CertType:   secrets.CACert,
 		},
 		secretsmanager.Rotate(secretsmanager.KeepOld),
 		// secretsmanager.IgnoreOldSecrets(), // step 2: complete CA rotation
@@ -64,9 +64,9 @@ func main() {
 
 	serverSecret, err := secretsManager.Generate(ctx,
 		&secrets.CertificateSecretConfig{
+			CertType:   secrets.ServerCert,
 			Name:       "demo-server",
 			CommonName: "my-server",
-			CertType:   secrets.ServerCert,
 		},
 		secretsmanager.SignedByCA("demo-ca"),
 	)
