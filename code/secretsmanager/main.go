@@ -32,7 +32,7 @@ func main() {
 
 	// initialize secrets manager
 	rotationTriggerTimes := map[string]time.Time{
-		"demo-ca": time.Now(), // step 1: start CA rotation
+		// "demo-ca": time.Now(), // step 1: start CA rotation
 	}
 
 	secretsManager, err := secretsmanager.New(
@@ -54,7 +54,7 @@ func main() {
 			CertType:   secrets.CACert,
 		},
 		secretsmanager.Rotate(secretsmanager.KeepOld),
-		secretsmanager.IgnoreOldSecrets(), // step 2: complete CA rotation
+		// secretsmanager.IgnoreOldSecrets(), // step 2: complete CA rotation
 	)
 	utilruntime.Must(err)
 
