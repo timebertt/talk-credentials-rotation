@@ -25,6 +25,41 @@ Notes:
 - Don't worry if you feel like this now
 - Credentials management in Kubernetes is hard
 
+---
+
+## Project Gardener
+
+![Gardener](../assets/gardener.svg) [github.com/gardener](https://github.com/gardener)
+
+- Started in 2017
+- Vanilla, conformant ![Kubernetes](../assets/kubernetes.svg) clusters as a service
+- Early adopters of "Kubernetes in Kubernetes" model
+- Declarative cluster specification (custom resources)
+- 100% open source
+- Built for scale
+
+<!--TODO(timebertt): Fix layout-->
+![Inception](../assets/inception.gif)
+<!-- .element style="width: 20%" -->
+
+Notes:
+- Think GKE for any infrastructure/environment
+- Homogenous clusters
+- Extensible
+- Kubernetes-native (declarative cluster specification)
+
+vvv
+
+## Gardener Architecture
+
+![Architecture Kubernetes](../assets/gardener-architecture.png)
+<!-- .element: class="r-stretch" -->
+
+Notes:
+- Short demo: Show this in a local cluster
+- We use Kubernetes everywhere, also for secret management
+- Kubernetes is our application/our workload.
+
 vvv
 
 ## Rotation At Scale
@@ -38,71 +73,3 @@ vvv
 Notes:
 - We talk about credentials for "Kubernetes as application"
 - Where are we coming from? -> Mgmt of 1000s of clusters
-
----
-
-## Project Gardener
-
-![Gardener](../assets/gardener.svg) [github.com/gardener](https://github.com/gardener)
-
-- Started in 2017
-- Vanilla, conformant ![Kubernetes](../assets/kubernetes.svg) clusters as a service
-- Early adopters of "Kubernetes in Kubernetes" model
-- 100% open source
-- Built for scale
-
-![Inception](../assets/inception.gif)
-<!-- .element style="width: 20%" -->
-
-Notes:
-- Think GKE for any infrastructure/environment
-- Homogenous clusters
-- Extensible
-- Kubernetes-native (declarative cluster specification)
-
-vvv
-
-## Project Gardener
-
-Declarative cluster specification:
-
-```yaml
-apiVersion: core.gardener.cloud/v1beta1
-kind: Shoot
-metadata:
-  name: my-cluster
-  namespace: garden-dev
-spec:
-  kubernetes:
-    version: 1.26.1
-  region: europe-central-1
-  secretBindingName: my-cloud-provider-account
-  provider:
-    type: gcp
-    workers:
-    - name: pool-1
-      minimum: 3
-      maximum: 5
-      machine:
-        type: m5.large
-        image:
-          name: ubuntu
-          version: 22.04
-  networking:
-    type: calico
-    pods: 100.96.0.0/11
-    nodes: 10.250.0.0/16
-    services: 100.64.0.0/13
-```
-
-vvv
-
-## Gardener Architecture
-
-![Architecture Kubernetes](../assets/gardener-architecture.png)
-<!-- .element: class="r-stretch" -->
-
-Notes:
-- Short demo: Show this in a local cluster
-- We use Kubernetes everywhere, also for secret management
-- Kubernetes is our application/our workload.

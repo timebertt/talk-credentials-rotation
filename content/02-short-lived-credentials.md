@@ -28,7 +28,7 @@ vvv
 
 Since Kubernetes `v1.22`, this results in
 
-```yaml[|9-26|5-8|1-26|14]
+```yaml[|9-26|5-8]
 spec:
   containers:
   - name: nginx
@@ -60,7 +60,6 @@ spec:
 Notes:
 - kubelet automatically requests and mounts JWT token into pod
 - client must regularly reload the token file (supported since long time in all major client libraries like `client-go`)
-- `3607s`, aka `1h7s` looks good (not too long), right?
 
 vvv
 
@@ -79,6 +78,44 @@ Notes:
 
 vvv
 
+## Projected Token Mount
+
+Since Kubernetes `v1.22`, this results in
+
+```yaml[|14]
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: kube-api-access-5f65c
+      mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readOnly: true
+  volumes:
+  - name: kube-api-access-5f65c
+    projected:
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+```
+
+Notes:
+- `3607s`, aka `1h7s` looks good (not too long), right?
+
+vvv
+
 ## "Magic" Expiration Time
 
 kubelet silently overwrites the expiration seconds 👻
@@ -86,20 +123,20 @@ kubelet silently overwrites the expiration seconds 👻
 
 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
 
-```go[|9-12|11-12,2|3,13]
+```go[|8-11|10-11,2|3,13]
 const (
-	WarnOnlyBoundTokenExpirationSeconds = 60 * 60 + 7
-	ExpirationExtensionSeconds          = 24 * 365 * 60 * 60
+	WarnOnlyBoundTokenExpirationSeconds = 60*60+7 // 3607
+	ExpirationExtensionSeconds          = 24*365*60*60 // 1y
 )
 
-// ...
-
 exp := req.Spec.ExpirationSeconds
+
 if pod != nil &&
   r.isKubeAudiences(req.Spec.Audiences) &&
   r.extendExpiration &&
   req.Spec.ExpirationSeconds == WarnOnlyBoundTokenExpirationSeconds {
-	exp = ExpirationExtensionSeconds
+
+  exp = ExpirationExtensionSeconds
 }
 ```
 
@@ -136,30 +173,25 @@ data:
   token: <some-static-token>
 ```
 
-- Such tokens have no expiration date! 😱
-- Probably they still exist in your 1.24+ clusters! 👹
+Such tokens have no expiration date! 😱
 
 Notes:
 - You can even now still create them manually if needed
+
+vvv
+
+## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
+
+| Feature | Alpha | Beta | GA |
+| -------- | ---- | ---- | -- |
+| No auto-generation ✅ | - | 1.24 | 1.26 |
+| Tracking metrics ✅ | 1.26 | 1.27 | 1.28 |
+| Auto-cleanup ⚠️ | 1.27 | 1.28 | 1.29 |
+
+Most probably static tokens still exist in your clusters! 👹
+
+Notes:
 - No auto-cleanup as of today
-
-vvv
-
-## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
-
-![1](../assets/kep2799-1.png)
-
-vvv
-
-## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
-
-![1](../assets/kep2799-2.png)
-
-vvv
-
-## [KEP-2799](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token): Reduction of Secret-based Service Account Tokens
-
-![1](../assets/kep2799-3.png)
 
 vvv
 
@@ -182,6 +214,9 @@ Notes:
   EOF
   ```
 - Show invalidated token
+- Gardener runs business-critical workload
+- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
+- Security standards must also be applied for lower Kubernetes versions
 
 vvv
 
@@ -190,8 +225,3 @@ vvv
 - If you are on `v1.24` or higher, manually delete still remaining static token secrets
 
 - If you are stuck below `v1.24`, consider invalidating the tokens
-
-Notes:
-- Gardener runs business-critical workload
-- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
-- Security standards must also be applied for lower Kubernetes versions
