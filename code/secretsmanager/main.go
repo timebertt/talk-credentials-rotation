@@ -9,7 +9,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/utils/clock"
+	"k8s.io/utils/clock/testing"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
@@ -21,7 +21,7 @@ import (
 func main() {
 	ctx := signals.SetupSignalHandler()
 	log := logger.MustNewZapLogger(logger.InfoLevel, logger.FormatText)
-	cl := clock.RealClock{}
+	cl := testing.NewFakeClock(time.Date(2023, 4, 17, 11, 10, 0, 0, time.Local))
 
 	// initialize client and prepare demo namespace
 	c, err := client.New(config.GetConfigOrDie(), client.Options{})
@@ -32,7 +32,7 @@ func main() {
 
 	// initialize secrets manager
 	rotationTriggerTimes := map[string]time.Time{
-		// "demo-ca": time.Now(), // step 1: start CA rotation
+		// "demo-ca": cl.Now(), // step 1: start CA rotation
 	}
 
 	secretsManager, err := secretsmanager.New(

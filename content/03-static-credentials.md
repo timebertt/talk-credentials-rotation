@@ -12,7 +12,6 @@ notes:
 - CAs: valid for 10 years by default
 - other credentials: no expiration
 - previously: only static token and ssh key pair rotatable
-- show the zoo: `k -n shoot--local--local get secret -l managed-by -L name`
 
 vvv
 
@@ -37,18 +36,6 @@ rotation in two steps
 
 vvv
 
-## Key Elements
-
-- clients need to refresh their credentials after preparation
-- clients trigger completion once ready
-- automatic rotation for non-user-facing credentials
-
-notes:
-- clients: humans (e.g., kubeconfig CA bundle)
-- machines (e.g., kubelet client cert)
-
----
-
 <!-- https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing -->
 
 ## Server Certificates
@@ -63,23 +50,20 @@ vvv
 - step 1: servers add new CA to their CA bundles, clients get new certificates asynchronously
 - step 2: servers stops accepting certificates signed by the old CA
 
-vvv
-
-## Bundles
-
-- certificate authorities and related certificates
-- service account signing key
-- etcd encryption key
+notes:
+- bundles approach also works for other credentials: SA signing key
 
 vvv
 
-![Demo](../assets/show-me-a-demo.jpg)
-<!-- .element: class="r-stretch" -->
+## Key Elements
+
+- clients need to refresh their credentials after preparation
+- clients trigger completion once ready
+- automatic rotation for non-user-facing credentials
 
 notes:
-- keep previous list of secrets open
-- trigger rotation of all shoot credentials
-- show rotated secrets (bundles)
+- clients: humans (e.g., kubeconfig CA bundle)
+- machines (e.g., kubelet client cert)
 
 ---
 
@@ -108,7 +92,6 @@ notes:
   - plain Kubernetes secrets
   - labels for locating and identifying when to rate
   - immutable secrets: scalability
-- TODO: change config?
 - TODO: rotate CA?
 
 vvv
@@ -130,7 +113,9 @@ vvv
 ## Auto-Rotation
 
 - activated for non-user-facing credentials
-  - internal CAs: 30d validity
 - rotation is prepared when approaching end of validity
 - rotation is completed after 24h
 - fully-automated + disruption-free!
+
+notes:
+- internal CAs: 30d validity
