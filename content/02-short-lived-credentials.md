@@ -67,7 +67,13 @@ vvv
 ## `TokenRequest` API
 
 Notes:
-- Short demo creating a token
+- ```shell
+  kubectl create sa robot
+  kubectl create token robot -v=9
+  ```
+- Explain `TokenRequest` body and `serviceaccounts/token` subresource
+- Copy token into kubeconfig and use it
+- Mention `.spec.boundObjectRef` (invalid after pod/SA deletion) -> delete SA and show it's not working anymore
 - Mention that this API can also be called from others (not only kubelet)
 - We use this in Gardener as well
 
@@ -163,9 +169,19 @@ vvv
 <!-- .element: class="r-stretch" -->
 
 Notes:
-- Gardener runs business-critical workload
-- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
-- Security standards must also be applied for lower Kubernetes versions
+- Prepare: `kubectl create sa invalidation && kubectl patch sa invalidation --type=merge --patch='{"automountServiceAccountToken":false}'`
+- ```shell
+  kubectl apply -f - <<EOF
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: invalidation
+    annotations:
+      kubernetes.io/service-account.name: invalidation
+  type: kubernetes.io/service-account-token
+  EOF
+  ```
+- Show invalidated token
 
 vvv
 
@@ -175,3 +191,7 @@ vvv
 
 - If you are stuck below `v1.24`, consider invalidating the tokens
 
+Notes:
+- Gardener runs business-critical workload
+- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
+- Security standards must also be applied for lower Kubernetes versions
