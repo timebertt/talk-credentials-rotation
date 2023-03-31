@@ -97,22 +97,12 @@ spec:
 
 vvv
 
-# TODO: Drop the following two slides. Replace them with a more "lightweight" (as far as this is possible in this project) architecture diagram.
-# Goal/Explanation: We use Kubernetes everywhere, also for secrets management. Kubernetes components are our "workload/application".
-
-## Kubernetes Architecture
-
-![Architecture Kubernetes](../assets/architecture-kubernetes.png)
-<!-- .element: class="r-stretch" -->
-
-vvv
-
 ## Gardener Architecture
 
-![Architecture Gardener](../assets/architecture-gardener.png)
+![Architecture Kubernetes](../assets/gardener-architecture.png)
 <!-- .element: class="r-stretch" -->
 
 Notes:
-- Go back to previous slide to explain what exactly a "Shoot cluster" is
-- Main difference: No master VMs, hence better resource utilization and less TCO
-- Kubernetes API everywhere available for management
+- Short demo: Show this in a local cluster
+- We use Kubernetes everywhere, also for secret management
+- Kubernetes is our application/our workload.
