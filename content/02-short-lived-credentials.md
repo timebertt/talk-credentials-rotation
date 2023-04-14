@@ -185,13 +185,14 @@ vvv
 | Feature | Alpha | Beta | GA |
 | -------- | ---- | ---- | -- |
 | No auto-generation ✅ | - | 1.24 | 1.26 |
-| Tracking metrics ✅ | 1.26 | 1.27 | 1.28 |
-| Auto-cleanup ⚠️ | 1.27 | 1.28 | 1.29 |
+| Usage tracking ✅ | 1.26 | 1.27 | 1.28 |
+| Auto-cleanup ⚠️ | 1.28 | 1.29 | 1.30 |
 
 Most probably static tokens still exist in your clusters! 👹
 
 Notes:
 - No auto-cleanup as of today
+- If you have not created a fresh cluster with at least 1.24, then they might still exist
 
 vvv
 

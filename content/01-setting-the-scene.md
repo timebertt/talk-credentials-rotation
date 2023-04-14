@@ -64,11 +64,11 @@ vvv
 
 ## Rotation At Scale
 
-- **Goals:** Disruption-free, minimal ops, fully automated
-
 - Now think about managing thousands of clusters
-
+  
 - How to orchestrate credentials rotation at such scale?
+  
+- **Goals:** Disruption-free, minimal ops, fully automated
 
 Notes:
 - We talk about credentials for "Kubernetes as application"
