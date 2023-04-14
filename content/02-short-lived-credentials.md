@@ -198,7 +198,7 @@ vvv
 ## Token Invalidation
 
 ![Demo](../assets/demo-time.gif)
-<!-- .element: class="r-stretch" -->
+<!-- .element: style="r-stretch" --> 
 
 Notes:
 - Prepare: `kubectl create sa invalidation && kubectl patch sa invalidation --type=merge --patch='{"automountServiceAccountToken":false}'`

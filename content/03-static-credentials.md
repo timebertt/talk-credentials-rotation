@@ -2,7 +2,7 @@
 
 ---
 
-## Static Credentials
+## Static Credentials 🔐
 
 ![Shoot Credentials](../assets/01-shoot-credentials-before.excalidraw.png)
 <!-- .element: class="r-stretch" -->
@@ -16,7 +16,7 @@ notes:
 
 vvv
 
-## Solution
+## Solution 💡
 
 rotation in two steps
 
@@ -27,14 +27,14 @@ vvv
 
 <!-- https://github.com/gardener/gardener/blob/master/docs/development/secrets_management.md#certificate-signing -->
 
-## Server Certificates
+## Server Certificates 🗄
 
 - step 1: server certificates signed by old CA, clients add new CA to their CA bundles asynchronously
 - step 2: server certificates signed by new CA, clients drop the old CA from their CA bundles
 
 vvv
 
-## Client Certificates
+## Client Certificates 🧑‍💻
 
 - step 1: servers add new CA to their CA bundles, clients get new certificates asynchronously
 - step 2: servers stops accepting certificates signed by the old CA
@@ -44,7 +44,7 @@ notes:
 
 vvv
 
-## Key Elements
+## Key Elements 🔑
 
 - clients need to refresh their credentials after preparation
 - clients trigger completion once ready
@@ -56,9 +56,9 @@ notes:
 
 ---
 
-## Secrets Manager
+## Secrets Manager 👔
 
-- our implementation in go
+- our implementation in ![go](../assets/gopher.png) <!-- .element: class="img-inline" -->
 - manages all types of credentials
 
 vvv
@@ -68,7 +68,7 @@ vvv
 **Live Coding!**
 
 ![Live Coding](../assets/live-coding.gif)
-<!-- .element: class="r-stretch" -->
+<!-- .element: style="height: 300px" -->
 
 notes:
 - preparation: `cd code && make kind-up`
@@ -87,7 +87,7 @@ notes:
 
 vvv
 
-## Auto-Rotation
+## Auto-Rotation 🔁
 
 - activated for non-user-facing credentials
 - rotation is prepared when approaching end of validity

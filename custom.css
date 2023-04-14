@@ -1,9 +1,5 @@
-img[alt=Gardener] {
-  vertical-align: sub;
+.img-inline {
+    vertical-align: middle;
+    height: 1.5em;
+    margin: 0 !important;
 }
-
-img[alt=Kubernetes] {
-  width: 5%;
-  vertical-align: text-bottom;
-}
-

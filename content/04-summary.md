@@ -1,4 +1,4 @@
-# Key Takeaways
+# Key Takeaways ✨
 
 vvv
 

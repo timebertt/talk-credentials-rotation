@@ -29,10 +29,10 @@ Notes:
 
 ## Project Gardener
 
-![Gardener](../assets/gardener.svg) [github.com/gardener](https://github.com/gardener)
+![Gardener](../assets/gardener.svg) <!-- .element: class="img-inline" style="height: 2em;" --> [github.com/gardener](https://github.com/gardener)
 
 - Started in 2017
-- Vanilla, conformant ![Kubernetes](../assets/kubernetes.svg) clusters as a service
+- Vanilla, conformant ![Kubernetes](../assets/kubernetes.svg) <!-- .element: class="img-inline" --> clusters as a service
 - Early adopters of "Kubernetes in Kubernetes" model
 - Declarative cluster specification (custom resources)
 - 100% open source
