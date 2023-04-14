@@ -65,6 +65,9 @@ vvv
 
 ## `TokenRequest` API
 
+![Demo](../assets/demo-time.gif)
+<!-- .element: style="r-stretch" -->
+
 Notes:
 - ```shell
   kubectl create sa robot
@@ -196,33 +199,13 @@ Notes:
 
 vvv
 
-## Token Invalidation
-
-![Demo](../assets/demo-time.gif)
-<!-- .element: style="r-stretch" --> 
-
-Notes:
-- Prepare: `kubectl create sa invalidation && kubectl patch sa invalidation --type=merge --patch='{"automountServiceAccountToken":false}'`
-- ```shell
-  kubectl apply -f - <<EOF
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: invalidation
-    annotations:
-      kubernetes.io/service-account.name: invalidation
-  type: kubernetes.io/service-account-token
-  EOF
-  ```
-- Show invalidated token
-- Gardener runs business-critical workload
-- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
-- Security standards must also be applied for lower Kubernetes versions
-
-vvv
-
 ## Conclusion
 
 - If you are on `v1.24` or higher, manually delete still remaining static token secrets
 
-- If you are stuck below `v1.24`, consider invalidating the tokens
+- If you are stuck below `v1.24`, consider invalidating the tokens (talk to us!)
+
+Notes:
+- Gardener runs business-critical workload
+- Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
+- Security standards must also be applied for lower Kubernetes versions
