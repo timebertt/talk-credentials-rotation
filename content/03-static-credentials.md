@@ -71,6 +71,7 @@ vvv
 <!-- .element: class="r-stretch" -->
 
 notes:
+- preparation: `cd code && make kind-up`
 - `watch k -n secrets-manager get secret -L name,bundle-for`
 - run once w/o server cert
 - show generated CA and bundle secret

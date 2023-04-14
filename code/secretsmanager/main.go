@@ -17,7 +17,7 @@ import (
 
 // Use the GoLand run config or run this from the code directory with:
 //
-//	KUBECONFIG=$PWD/../kind-kubeconfig.yaml go run ./secretsmanager
+//	KUBECONFIG=$PWD/kind-kubeconfig.yaml go run ./secretsmanager
 func main() {
 	ctx := signals.SetupSignalHandler()
 	log := logger.MustNewZapLogger(logger.InfoLevel, logger.FormatText)
