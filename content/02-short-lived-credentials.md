@@ -24,7 +24,7 @@ spec:
 
 vvv
 
-## Projected Token Mount
+## Projected Token Mount 🔮
 
 Since Kubernetes `v1.22`, this results in
 
@@ -81,7 +81,7 @@ Notes:
 
 vvv
 
-## Projected Token Mount
+## Projected Token Mount 🔮
 
 Since Kubernetes `v1.22`, this results in
 
@@ -119,10 +119,9 @@ Notes:
 
 vvv
 
-## "Magic" Expiration Time
+## "Magic" Expiration Time 🪄
 
 kubelet silently overwrites the expiration seconds 👻
-
 
 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
 
@@ -158,7 +157,7 @@ vvv
 
 ---
 
-## Static Token Secrets
+## Static Token Secrets 📜
 
 Before Kubernetes `v1.24`, a static token `Secret` was automatically generated for `ServiceAccount`s:
 
