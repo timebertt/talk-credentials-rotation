@@ -21,7 +21,7 @@ import (
 func main() {
 	ctx := signals.SetupSignalHandler()
 	log := logger.MustNewZapLogger(logger.InfoLevel, logger.FormatText)
-	cl := testing.NewFakeClock(time.Date(2023, 4, 17, 11, 10, 0, 0, time.Local))
+	cl := testing.NewFakeClock(time.Date(2023, 4, 17, 10, 10, 0, 0, time.Local))
 
 	// initialize client and prepare demo namespace
 	c, err := client.New(config.GetConfigOrDie(), client.Options{})
@@ -60,7 +60,7 @@ func main() {
 
 	log.Info("We have a CA!", "secretName", caSecret.Name)
 
-	// BEGIN: live coding section
+	// BEGIN: live coding section: generate a server certificate
 
 	serverSecret, err := secretsManager.Generate(ctx,
 		&secrets.CertificateSecretConfig{

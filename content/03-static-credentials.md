@@ -9,9 +9,11 @@
 
 notes:
 - TODO: redraw diagram, not all service account tokens are static, remove observability credentials
+- every k8s cluster: CAs and server/client certs
+- CA: kube-apiserver serving cert
+- client CA: kubelet client certs
 - CAs: valid for 10 years by default
-- other credentials: no expiration
-- previously: only static token and ssh key pair rotatable
+- other credentials (etcd encryption, SA signing key): no expiration
 - frequently rotate static credentials
 
 vvv
@@ -83,6 +85,7 @@ notes:
   - labels for locating and identifying when to rate
   - immutable secrets: scalability
 - rotate CA
+- `k -n secrets-manager get secret -l bundle-for=demo-ca -oyaml | yq '.items[].data["bundle.crt"]' | base64 -d`
 - TODO: record ascinema as backup
 
 vvv
