@@ -36,7 +36,7 @@ module.exports = {
     // Use the host machine's local IP on the network.
     // This is useful for opening the slides on a mobile device while editing.
     // Comment out this line if you're offline or in a VPN.
-    // host: 'local-ip'
+    host: 'local-ip'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -47,7 +47,8 @@ module.exports = {
         'viewport': 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
       },
       base: {
-        href: baseURL
+        href: baseURL,
+        target: "_blank"
       },
       // in production mode, hash is included in output filename, no need to append a hash query
       hash: devMode

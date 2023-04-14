@@ -11,8 +11,8 @@ Share the slides: <a class="slides-qr-code"></a>
 <td>
 
 Follow us on Twitter:
-- [@rafaelfranzke](https://twitter.com/rafaelfranzke) <!-- .element: target="_blank" -->
-- [@timebertt](https://twitter.com/timebertt) <!-- .element: target="_blank" -->
+- [@rafaelfranzke](https://twitter.com/rafaelfranzke)
+- [@timebertt](https://twitter.com/timebertt)
 
 </td>
 <td>
