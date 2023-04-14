@@ -21,14 +21,14 @@ import (
 func main() {
 	ctx := signals.SetupSignalHandler()
 	log := logger.MustNewZapLogger(logger.InfoLevel, logger.FormatText)
-	cl := testing.NewFakeClock(time.Date(2023, 4, 17, 10, 10, 0, 0, time.Local))
+	clock := testing.NewFakeClock(time.Date(2023, 4, 17, 10, 10, 0, 0, time.Local))
 
 	// initialize client and prepare demo namespace
-	c, err := client.New(config.GetConfigOrDie(), client.Options{})
+	kubernetesClient, err := client.New(config.GetConfigOrDie(), client.Options{})
 	utilruntime.Must(err)
 
 	namespace := "secrets-manager"
-	utilruntime.Must(client.IgnoreAlreadyExists(c.Create(ctx, &corev1.Namespace{ObjectMeta: metav1.ObjectMeta{Name: namespace}})))
+	utilruntime.Must(client.IgnoreAlreadyExists(kubernetesClient.Create(ctx, &corev1.Namespace{ObjectMeta: metav1.ObjectMeta{Name: namespace}})))
 
 	// initialize secrets manager
 	rotationTriggerTimes := map[string]time.Time{
@@ -38,8 +38,8 @@ func main() {
 	secretsManager, err := secretsmanager.New(
 		ctx,
 		log.WithName("secretsmanager"),
-		cl,
-		c,
+		clock,
+		kubernetesClient,
 		namespace,
 		"demo",
 		secretsmanager.Config{SecretNamesToTimes: rotationTriggerTimes},

@@ -28,8 +28,9 @@ vvv
 
 Since Kubernetes `v1.22`, this results in
 
-```yaml[|9-26|5-8]
+```yaml[|10-27|6-9]
 spec:
+  serviceAccountName: robot
   containers:
   - name: nginx
     image: nginx
@@ -58,6 +59,7 @@ spec:
 ```
 
 Notes:
+
 - kubelet automatically requests and mounts JWT token into pod
 - client must regularly reload the token file (supported since long time in all major client libraries like `client-go`)
 
@@ -69,6 +71,7 @@ vvv
 <!-- .element: style="r-stretch" -->
 
 Notes:
+
 - ```shell
   kubectl create sa robot
   kubectl create token robot -v=9
@@ -115,15 +118,12 @@ spec:
 ```
 
 Notes:
+
 - `3607s`, aka `1h7s` looks good (not too long), right?
 
 vvv
 
 ## "Magic" Expiration Time 🪄
-
-kubelet silently overwrites the expiration seconds 👻
-
-[Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
 
 ```go[|8-11|10-11,2|3,13]
 const (
@@ -142,10 +142,14 @@ if pod != nil &&
 }
 ```
 
+kube-apiserver silently overwrites the expiration seconds 👻 [Source](https://github.com/kubernetes/kubernetes/blob/475f9010f5faa7bdd439944a6f5f1ec206297602/pkg/registry/core/serviceaccount/storage/token.go#L177-L180)
+
 Notes:
+
 - This flag is true by default
 - Token lifetime is extended to `1y` even though spec says `1h7s`
 - Why? Clients must reload the token - prevent unexpected failure in production clusters
+- This is not a short-lived token!
 
 vvv
 
@@ -178,6 +182,7 @@ data:
 Such tokens have no expiration date! 😱
 
 Notes:
+
 - You can even now still create them manually if needed
 
 vvv
@@ -193,6 +198,7 @@ vvv
 Most probably static tokens still exist in your clusters! 👹
 
 Notes:
+
 - No auto-cleanup as of today
 - If you have not created a fresh cluster with at least 1.24, then they might still exist
 
@@ -205,6 +211,7 @@ vvv
 - If you are stuck below `v1.24`, consider invalidating the tokens (talk to us!)
 
 Notes:
+
 - Gardener runs business-critical workload
 - Brown-field applications cannot update too frequently (agreed MTW with customers), or bugs are blocking updates
 - Security standards must also be applied for lower Kubernetes versions

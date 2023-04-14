@@ -1,5 +1,15 @@
 # Questions? 🙋
 
+notes:
+
+- distinguish from cert manager functionality:
+  - we manage arbitrary secrets, not only certificates
+  - etcd encryption key rotation requires more orchestration, e.g., re-encryption of secrets in cluster
+  - cert-manager only renews in one step
+    - two-phase rotation is not possible
+    - rotation always causes disruption
+  - our solution is not generic, specifically tailored to operator case
+
 ---
 
 ## Thanks 🙌
