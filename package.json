@@ -9,8 +9,10 @@
     "start": "webpack serve --open",
     "serve": "http-server ./dist -o",
     "clean": "rm -rf ./dist",
+    "checksum-patches": "c=$(find patches -type f -exec sha256sum {} \\; | sort | sha256sum | awk '{print $1}'); npm pkg set patches-checksum=$c",
     "postinstall": "patch-package"
   },
+  "patches-checksum": "70bee338889bfcf306fb585a391a40379fa713f1e7ce5f352a46f4cb845ac009",
   "author": "Rafael Franzke and Tim Ebert",
   "dependencies": {
     "qrcode": "^1.5.1",
