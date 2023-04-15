@@ -24,8 +24,9 @@ export default () => {
         return;
 
       let url = new URL(slidesURL);
-      // drop hash (slide number)
+      // drop hash (slide number) and query (added in speaker view)
       url.hash = '';
+      url.search = '';
 
       deck.on('ready', async () => {
         try {
