@@ -29,5 +29,7 @@ Reveal.initialize({
   center: true,
   controls: true,
   navigationMode: 'default',
-  slideNumber: true
+  slideNumber: true,
+  // make hash links match slide number (zero-indexed by default)
+  hashOneBasedIndex: true
 });
