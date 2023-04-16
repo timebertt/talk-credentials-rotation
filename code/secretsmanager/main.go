@@ -32,7 +32,7 @@ func main() {
 
 	// initialize secrets manager
 	rotationTriggerTimes := map[string]time.Time{
-		// "demo-ca": cl.Now(), // phase 1: start CA rotation
+		// "demo-ca": clock.Now(), // phase 1: start CA rotation
 	}
 
 	secretsManager, err := secretsmanager.New(

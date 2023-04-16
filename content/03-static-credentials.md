@@ -1,5 +1,10 @@
 # Rotating Static Credentials
 
+notes:
+
+- now that we know how to use short-lived credentials
+- some credentials cannot be short-lived
+
 ---
 
 ## Static Credentials 🔐
@@ -9,21 +14,28 @@
 
 notes:
 
-- every k8s cluster: CAs and server/client certs
+- static credentials in every k8s cluster
 - CA: kube-apiserver serving cert
 - client CA: kubelet client certs
 - CAs: typically valid for long time (gardener: 10y, GKE: 30y)
 - other credentials (etcd encryption, SA signing key): no expiration
-- frequently rotate static credentials
+- best practice: frequently rotate static credentials
+- at scale: highly-automated, disruption-free
 
 vvv
 
 ## Solution 💡
 
-rotation in two phases
+Rotation in two phases:
 
 1. issue new credentials, accept both old and new
 2. invalidate old credentials
+
+notes:
+
+- phase 1
+- phase 2
+- clients need to refresh their credentials before triggering phase 2
 
 vvv
 
@@ -35,31 +47,32 @@ vvv
 <thead>
 <tr>
 <th align="right">phase</th>
-<th align="center">clients trust</th>
 <th>cert signed by</th>
+<th align="center">clients trust</th>
 </tr>
 </thead>
 <tbody>
 <tr class="fragment">
 <td align="right">0</td>
-<td align="center"><span class="cred old">old CA</span></td>
 <td><span class="cred old">old CA</span></td>
+<td align="center"><span class="cred old">old CA</span></td>
 </tr>
 <tr class="fragment">
 <td align="right">1</td>
-<td align="center"><span class="cred bundle">old+new CA</span></td>
 <td><span class="cred old">old CA</span></td>
+<td align="center"><span class="cred bundle">old+new CA</span></td>
 </tr>
 <tr class="fragment">
 <td align="right">2</td>
-<td align="center"><span class="cred new">new CA</span></td>
 <td><span class="cred new">new CA</span></td>
+<td align="center"><span class="cred new">new CA</span></td>
 </tr>
 </tbody>
 </table>
 
 notes:
 
+- before
 - phase 1: server certificates signed by old CA, clients add new CA to their CA bundles asynchronously
 - phase 2: server certificates signed by new CA, clients drop the old CA from their CA bundles
 
@@ -71,31 +84,32 @@ vvv
 <thead>
 <tr>
 <th align="right">phase</th>
-<th align="center">servers trust</th>
 <th>cert signed by</th>
+<th align="center">servers trust</th>
 </tr>
 </thead>
 <tbody>
 <tr class="fragment">
 <td align="right">0</td>
-<td align="center"><span class="cred old">old CA</span></td>
 <td><span class="cred old">old CA</span></td>
+<td align="center"><span class="cred old">old CA</span></td>
 </tr>
 <tr class="fragment">
 <td align="right">1</td>
-<td align="center"><span class="cred bundle">old+new CA</span></td>
 <td><span class="cred new">new CA</span></td>
+<td align="center"><span class="cred bundle">old+new CA</span></td>
 </tr>
 <tr class="fragment">
 <td align="right">2</td>
-<td align="center"><span class="cred new">new CA</span></td>
 <td><span class="cred new">new CA</span></td>
+<td align="center"><span class="cred new">new CA</span></td>
 </tr>
 </tbody>
 </table>
 
 notes:
 
+- before
 - phase 1: servers add new CA to their CA bundles, clients get new certificates asynchronously
 - phase 2: servers stops accepting certificates signed by the old CA
 - bundles approach also works for other credentials: SA signing key
@@ -110,8 +124,12 @@ vvv
 
 notes:
 
-- clients: humans (e.g., kubeconfig CA bundle)
-- machines (e.g., kubelet client cert)
+- clients need to comply -> refresh
+  - humans (e.g., kubeconfig CA bundle)
+  - cluster components (e.g., kubelet client cert)
+- we cannot control all clients
+- trigger completion once ready
+- if controlling all clients: automatic rotation
 
 ---
 
