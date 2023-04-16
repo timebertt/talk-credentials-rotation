@@ -16,12 +16,12 @@ vvv
 
 ## Key Takeaways
 
-- rotate static credentials in two steps
+- rotate static credentials in two phases
 - use bundles in between
 - implemented for Kubernetes as workload, concept is applicable to most workloads
 
 notes:
 
-- where short-lived credentials not possible, rotate static one in two steps
+- where short-lived credentials not possible, rotate static one in two phases
 - bundles -> disruption-free
 - applicable to other workloads

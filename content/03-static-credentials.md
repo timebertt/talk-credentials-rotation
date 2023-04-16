@@ -12,7 +12,7 @@ notes:
 - every k8s cluster: CAs and server/client certs
 - CA: kube-apiserver serving cert
 - client CA: kubelet client certs
-- CAs: typically valid for long time (gardener: 10y, GKE: 30y TODO)
+- CAs: typically valid for long time (gardener: 10y, GKE: 30y)
 - other credentials (etcd encryption, SA signing key): no expiration
 - frequently rotate static credentials
 

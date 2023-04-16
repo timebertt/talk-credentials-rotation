@@ -32,7 +32,7 @@ func main() {
 
 	// initialize secrets manager
 	rotationTriggerTimes := map[string]time.Time{
-		// "demo-ca": cl.Now(), // step 1: start CA rotation
+		// "demo-ca": cl.Now(), // phase 1: start CA rotation
 	}
 
 	secretsManager, err := secretsmanager.New(
@@ -54,7 +54,7 @@ func main() {
 			CommonName: "my-selfsigned-ca",
 		},
 		secretsmanager.Rotate(secretsmanager.KeepOld),
-		// secretsmanager.IgnoreOldSecrets(), // step 2: complete CA rotation
+		// secretsmanager.IgnoreOldSecrets(), // phase 2: complete CA rotation
 	)
 	utilruntime.Must(err)
 
