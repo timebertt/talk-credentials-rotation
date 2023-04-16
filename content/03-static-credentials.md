@@ -4,12 +4,11 @@
 
 ## Static Credentials 🔐
 
-![Shoot Credentials](../assets/01-shoot-credentials-before.excalidraw.png)
+![Shoot Credentials](../assets/static-credentials.excalidraw.png)
 <!-- .element: class="r-stretch" -->
 
 notes:
 
-- TODO: redraw diagram, not all service account tokens are static, remove observability credentials
 - every k8s cluster: CAs and server/client certs
 - CA: kube-apiserver serving cert
 - client CA: kubelet client certs

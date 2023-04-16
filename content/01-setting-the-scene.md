@@ -53,7 +53,7 @@ vvv
 
 ## Kubernetes as Workload on Kubernetes
 
-![Architecture Kubernetes](../assets/gardener-architecture.png)
+![Architecture Kubernetes](../assets/gardener-architecture.excalidraw.png)
 <!-- .element: class="r-stretch" -->
 
 Notes:
