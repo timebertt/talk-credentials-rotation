@@ -1,5 +1,12 @@
 # Questions? 🙋
 
+Slides Available Online:
+
+<img class="slides-qr-code"></img>
+<!-- .element: class="r-stretch" -->
+
+<a class="slides-qr-code"></a>
+
 notes:
 
 - distinguish from cert manager functionality:
@@ -13,8 +20,6 @@ notes:
 ---
 
 ## Thanks 🙌
-
-Share the slides: <a class="slides-qr-code"></a>
 
 <table>
 <tr>
