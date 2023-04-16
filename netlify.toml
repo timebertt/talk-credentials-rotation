@@ -16,6 +16,12 @@ access-control-allow-origin = "*"
 
 # long-term caching for everything except index.html
 [[headers]]
+for = "/index.html"
+
+[headers.values]
+cache-control = "public,max-age=0,must-revalidate"
+
+[[headers]]
 for = "/*"
 
 [headers.values]
