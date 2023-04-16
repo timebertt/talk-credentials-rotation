@@ -31,24 +31,73 @@ vvv
 
 ## Server Certificates 🗄
 
-|  phase |   trust    | cert signed by |
-|-------:|:----------:|----------------|
-|      0 |   old CA   | old CA         |
-|      1 | old+new CA | old CA         |
-|      2 |   new CA   | new CA         |
+<table class="no-borders">
+<thead>
+<tr>
+<th align="right">phase</th>
+<th align="center">clients trust</th>
+<th>cert signed by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td align="right">0</td>
+<td align="center"><span class="cred old">old CA</span></td>
+<td><span class="cred old">old CA</span></td>
+</tr>
+<tr class="fragment">
+<td align="right">1</td>
+<td align="center"><span class="cred bundle">old+new CA</span></td>
+<td><span class="cred old">old CA</span></td>
+</tr>
+<tr class="fragment">
+<td align="right">2</td>
+<td align="center"><span class="cred new">new CA</span></td>
+<td><span class="cred new">new CA</span></td>
+</tr>
+</tbody>
+</table>
+
+notes:
+
+- phase 1: server certificates signed by old CA, clients add new CA to their CA bundles asynchronously
+- phase 2: server certificates signed by new CA, clients drop the old CA from their CA bundles
 
 vvv
 
 ## Client Certificates 🧑‍💻
 
-|  phase |   trust    | cert signed by |
-|-------:|:----------:|----------------|
-|      0 |   old CA   | old CA         |
-|      1 | old+new CA | new CA         |
-|      2 |   new CA   | new CA         |
+<table class="no-borders">
+<thead>
+<tr>
+<th align="right">phase</th>
+<th align="center">servers trust</th>
+<th>cert signed by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment">
+<td align="right">0</td>
+<td align="center"><span class="cred old">old CA</span></td>
+<td><span class="cred old">old CA</span></td>
+</tr>
+<tr class="fragment">
+<td align="right">1</td>
+<td align="center"><span class="cred bundle">old+new CA</span></td>
+<td><span class="cred new">new CA</span></td>
+</tr>
+<tr class="fragment">
+<td align="right">2</td>
+<td align="center"><span class="cred new">new CA</span></td>
+<td><span class="cred new">new CA</span></td>
+</tr>
+</tbody>
+</table>
 
 notes:
 
+- phase 1: servers add new CA to their CA bundles, clients get new certificates asynchronously
+- phase 2: servers stops accepting certificates signed by the old CA
 - bundles approach also works for other credentials: SA signing key
 
 vvv
